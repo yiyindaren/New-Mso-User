@@ -1,0 +1,25 @@
+$(document).on('click','.sub2',function(){
+    $(".sub2").attr('disabled',true);
+    $("#loading").show();
+    $.ajax({
+        type:"POST",
+        dataType:"text",
+        url:$('html').attr('data-form'),
+        data:$('#form2').serialize(),
+        success:function(data){
+            $("#container").html(data);
+        },
+        error:function(){
+            alert("与服务器通信时发生错误，请稍后重试。");
+            $("#loading").hide();
+            $(".sub2").attr('disabled',false);
+        }
+    });
+});
+var clipboard = new Clipboard('.copy');
+clipboard.on('success',function(e){
+    alert('复制成功');
+});
+clipboard.on('error',function(e){
+    alert('复制失败');
+});
